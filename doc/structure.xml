@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project version="2.0.0a13" title="">
+  <file path="Logger.php" hash="ba0e1e1a3a43712be23a8018ae8126fd" package="Default">
+    <class final="false" abstract="false" namespace="ChromePHP" line="27" package="Default">
+      <extends/>
+      <name>ChromePHP</name>
+      <full_name>\ChromePHP\ChromePHP</full_name>
+      <docblock line="9">
+        <description>Refactored and production tested ChromePHP logger</description>
+        <long-description>&lt;p&gt;Copyright 2012 Craig Campbell
+Copyright 2013 Aleksey Korzun&lt;/p&gt;
+
+&lt;p&gt;Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http://www.apache.org/licenses/LICENSE-2.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.&lt;/p&gt;</long-description>
+      </docblock>
+      <constant namespace="ChromePHP" line="34" package="Default">
+        <name>HEADER</name>
+        <full_name>HEADER</full_name>
+        <value>'X-ChromePHP-Data'</value>
+        <docblock line="29">
+          <description>Header identifier</description>
+          <long-description></long-description>
+          <tag line="29" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </constant>
+      <constant namespace="ChromePHP" line="41" package="Default">
+        <name>VERSION</name>
+        <full_name>VERSION</full_name>
+        <value>3.0</value>
+        <docblock line="36">
+          <description>Version identifier</description>
+          <long-description></long-description>
+          <tag line="36" name="var" description="" type="float">
+            <type by_reference="false">float</type>
+          </tag>
+        </docblock>
+      </constant>
+      <constant namespace="ChromePHP" line="48" package="Default">
+        <name>BACKTRACE_LEVEL</name>
+        <full_name>BACKTRACE_LEVEL</full_name>
+        <value>2</value>
+        <docblock line="43">
+          <description>Backtrace level</description>
+          <long-description></long-description>
+          <tag line="43" name="var" description="" type="int">
+            <type by_reference="false">int</type>
+          </tag>
+        </docblock>
+      </constant>
+      <constant namespace="ChromePHP" line="55" package="Default">
+        <name>LOG</name>
+        <full_name>LOG</full_name>
+        <value>'log'</value>
+        <docblock line="50">
+          <description>Type of regular output</description>
+          <long-description></long-description>
+          <tag line="50" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </constant>
+      <constant namespace="ChromePHP" line="62" package="Default">
+        <name>WARN</name>
+        <full_name>WARN</full_name>
+        <value>'warn'</value>
+        <docblock line="57">
+          <description>Type for warning output</description>
+          <long-description></long-description>
+          <tag line="57" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </constant>
+      <constant namespace="ChromePHP" line="69" package="Default">
+        <name>ERROR</name>
+        <full_name>ERROR</full_name>
+        <value>'error'</value>
+        <docblock line="64">
+          <description>Type for error output</description>
+          <long-description></long-description>
+          <tag line="64" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </constant>
+      <constant namespace="ChromePHP" line="76" package="Default">
+        <name>INFO</name>
+        <full_name>INFO</full_name>
+        <value>'info'</value>
+        <docblock line="71">
+          <description>Type for information output</description>
+          <long-description></long-description>
+          <tag line="71" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </constant>
+      <property final="false" static="false" visibility="protected" line="83" namespace="ChromePHP" package="Default">
+        <name>$json</name>
+        <default>array('version' =&gt; self::VERSION, 'columns' =&gt; array('label', 'log', 'backtrace', 'type'), 'rows' =&gt; array())</default>
+        <docblock line="78">
+          <description>JSON Schema</description>
+          <long-description></long-description>
+          <tag line="78" name="var" description="" type="string[]">
+            <type by_reference="false">string[]</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="protected" line="99" namespace="ChromePHP" package="Default">
+        <name>$backtraces</name>
+        <default>array()</default>
+        <docblock line="94">
+          <description>Backtrace storage</description>
+          <long-description></long-description>
+          <tag line="94" name="var" description="" type="mixed[]">
+            <type by_reference="false">mixed[]</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="protected" line="106" namespace="ChromePHP" package="Default">
+        <name>$processed</name>
+        <default>array()</default>
+        <docblock line="101">
+          <description>Prevent recursion when working with objects referring to each other</description>
+          <long-description></long-description>
+          <tag line="101" name="var" description="" type="mixed[]">
+            <type by_reference="false">mixed[]</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="protected" line="113" namespace="ChromePHP" package="Default">
+        <name>$instance</name>
+        <default></default>
+        <docblock line="108">
+          <description>Instance of ChromePHP</description>
+          <long-description></long-description>
+          <tag line="108" name="var" description="" type="\ChromePHP\ChromePHP">
+            <type by_reference="false">\ChromePHP\ChromePHP</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="ChromePHP" line="120" package="Default">
+        <name>instance</name>
+        <full_name>instance</full_name>
+        <docblock line="115">
+          <description>Get's an instance of this class</description>
+          <long-description></long-description>
+          <tag line="115" name="return" description="" type="\ChromePHP\ChromePHP">
+            <type by_reference="false">\ChromePHP\ChromePHP</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="ChromePHP" line="138" package="Default">
+        <name>__call</name>
+        <full_name>__call</full_name>
+        <docblock line="130">
+          <description>Magic method to log different types of messages</description>
+          <long-description></long-description>
+          <tag line="130" name="throws" description="" type="\Exception">
+            <type by_reference="false">\Exception</type>
+          </tag>
+          <tag line="130" name="param" description="" type="\ChromePHP\" variable="$method"/>
+          <tag line="130" name="param" description="" type="\ChromePHP\" variable="$arguments"/>
+        </docblock>
+        <argument line="138">
+          <name>$method</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="138">
+          <name>$arguments</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="ChromePHP" line="178" package="Default">
+        <name>write</name>
+        <full_name>write</full_name>
+        <docblock line="173">
+          <description>Write output to browser</description>
+          <long-description></long-description>
+          <tag line="173" name="param" description="" type="mixed[]" variable="$data">
+            <type by_reference="false">mixed[]</type>
+          </tag>
+        </docblock>
+        <argument line="178">
+          <name>$data</name>
+          <default></default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="ChromePHP" line="218" package="Default">
+        <name>convert</name>
+        <full_name>convert</full_name>
+        <docblock line="211">
+          <description>Converts an object to a better format for logging</description>
+          <long-description></long-description>
+          <tag line="211" name="param" description="" type="mixed" variable="$class">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="211" name="return" description="" type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+        <argument line="218">
+          <name>$class</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="ChromePHP" line="280" package="Default">
+        <name>property_type</name>
+        <full_name>property_type</full_name>
+        <docblock line="273">
+          <description>Takes a reflection property and returns a nicely formatted key of the property name</description>
+          <long-description></long-description>
+          <tag line="273" name="param" description="" type="\ReflectionProperty" variable="$property">
+            <type by_reference="false">\ReflectionProperty</type>
+          </tag>
+          <tag line="273" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="280">
+          <name>$property</name>
+          <default></default>
+          <type>\ReflectionProperty</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="ChromePHP" line="304" package="Default">
+        <name>encode</name>
+        <full_name>encode</full_name>
+        <docblock line="297">
+          <description>Encodes data to be sent along with the request</description>
+          <long-description></long-description>
+          <tag line="297" name="param" description="" type="mixed[]" variable="$data">
+            <type by_reference="false">mixed[]</type>
+          </tag>
+          <tag line="297" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="304">
+          <name>$data</name>
+          <default></default>
+          <type>array</type>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Logger.php</error>
+    </parse_markers>
+  </file>
+  <package name="Default" full_name="Default"/>
+  <namespace name="ChromePHP" full_name="ChromePHP"/>
+  <marker count="0">todo</marker>
+  <marker count="0">fixme</marker>
+  <deprecated count="0"/>
+</project>
