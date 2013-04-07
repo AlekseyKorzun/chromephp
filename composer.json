@@ -1,5 +1,5 @@
 {
-	"name": "alekseykorzun/chromephp-logger",
+	"name": "alekseykorzun/chromephp",
 	"description": "PHP class that logs information to ChromePHP extension for Chrome browser",
 	"keywords": ["chrome", "php", "log", "logger", "debug", "extension"],
 	"homepage": "https://github.com/AlekseyKorzun/ChromePHP-Logger",
