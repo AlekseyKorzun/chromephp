@@ -1,4 +1,4 @@
-ChromePHP Logger
+ChromePHP
 ===========
 
 PHP class that logs information to ChromePHP extension for Chrome browser
